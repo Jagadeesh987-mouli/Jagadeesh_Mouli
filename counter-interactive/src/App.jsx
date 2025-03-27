@@ -10,16 +10,16 @@ function App()
   const [info, setInfo] = useState("");
 
   const increment = ()=>{
-    verifyValues();
-    if(count<max && i>=1)
+    verifyInputValues();
+    if(count<max && !(count+Number(i) > max) && i>=1)
     {
       setCount(count+Number(i));
     }
   }
 
   const decrement = ()=>{
-    verifyValues();
-    if(count>min && i>=1)
+    verifyInputValues();
+    if(count>min && !(count-Number(i) < min) && i>=1)
     {
       setCount(count-Number(i));
     }
@@ -41,10 +41,10 @@ function App()
     setMax(max);
     setI(i);
     
-    verifyValues();
+    verifyInputValues();
   }
 
-  const verifyValues = ()=>
+  const verifyInputValues = ()=>
   {
       if(min>count)
       {
@@ -52,7 +52,7 @@ function App()
       }
       else if(max<count)
       {
-        setInfo("Wrong Input, Maximum value cannot be less than count")
+        setInfo("Wrong Input, Maximum value cannot be less than count");
       }
       else if(max==0 && min==0)
       {
@@ -61,6 +61,15 @@ function App()
       else
       {
         setInfo("Let Set Count...");
+      }
+
+      if(count+Number(i) > max)
+      {
+        setInfo("You are on the edge, Can't increase more")
+      }
+      if(count-Number(i) < min)
+      {
+        setInfo("You are on the edge, Can't decrease more")
       }
   
       if(i<1)
